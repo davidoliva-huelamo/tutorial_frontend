@@ -1,0 +1,21 @@
+.container {
+  min-width: 400px;
+  max-width: 550px;
+  padding: 20px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+  }
+}

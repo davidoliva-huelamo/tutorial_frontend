@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Pageable } from '../core/model/page/Pageable';
 import { Author } from './model/Author';
-import { AuthorPage } from './model/AuthorPage';
+
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -31,3 +31,6 @@ export class AuthorService {
         return this.http.get<Author[]>(this.baseUrl);
     }
 }
+
+
+import { AuthorPage } from './model/AuthorPage';

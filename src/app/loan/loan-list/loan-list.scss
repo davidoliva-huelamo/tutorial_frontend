@@ -1,0 +1,29 @@
+.container {
+  margin: 20px;
+
+  h1 {
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin-bottom: 16px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th {
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #666;
+  }
+
+  td, th {
+    padding: 8px;
+  }
+
+  td:last-child {
+    text-align: right;
+  }
+}

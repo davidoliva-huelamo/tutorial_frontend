@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { GameItem } from './game-item/game-item';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'app-game-list',
@@ -32,24 +33,25 @@ import { GameItem } from './game-item/game-item';
     templateUrl: './game-list.html',
     styleUrl: './game-list.scss',
 })
-export class GameList implements OnInit {
-    categories: Category[];
-    games: Game[];
-    filterCategory: Category;
-    filterTitle: string;
+
+    export class GameList implements OnInit {
+    categories: Category[] = [];
+    games: Game[] = [];
+
+    filterCategory: Category | null = null;
+    filterTitle: string | null = null;
 
     constructor(
         private gameService: GameService,
         private categoryService: CategoryService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private cdr: ChangeDetectorRef
     ) {}
 
+    
     ngOnInit(): void {
-        this.gameService.getGames().subscribe((games) => (this.games = games));
-
-        this.categoryService
-            .getCategories()
-            .subscribe((categories) => (this.categories = categories));
+    this.categoryService.getCategories().subscribe((categories) => {this.categories = categories; this.onSearch();
+        });
     }
 
     onCleanFilter(): void {
@@ -58,14 +60,16 @@ export class GameList implements OnInit {
         this.onSearch();
     }
 
+    
     onSearch(): void {
-        const title = this.filterTitle;
-        const categoryId =
-            this.filterCategory != null ? this.filterCategory.id : null;
+    const title = this.filterTitle;
+    const categoryId =
+        this.filterCategory != null ? this.filterCategory.id : null;
 
-        this.gameService
-            .getGames(title, categoryId)
-            .subscribe((games) => (this.games = games));
+    this.gameService.getGames(title, categoryId).subscribe(games => {
+        this.games = games;
+        this.cdr.detectChanges();
+    });
     }
 
     createGame() {
